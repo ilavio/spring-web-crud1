@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User</title>
+<style>
+.tab1 {
+	width: 500px;
+	border: 5px solid gray;
+	background: lime;
+}
+
+.tab2 {
+	width: 500px;
+	border: 5px solid black;
+	background: Aqua;
+}
+</style>
+</head>
+<body>
+
+<h1>Рецепт:</h1>
+<table class="tab1">
+<caption>Пациент</caption>
+<tr>
+<th>Фамилия</th><th>Имя</th><th>Отчество</th><th>Телефон</th>
+</tr>
+<tr>
+<td th:text="${model2.getSurname()}">Value</td><td th:text="${model2.getName()}">Value</td><td th:text="${model2.getPatronymic()}">Value</td>
+<td th:text="${model2.getTelephone()}">Value</td>
+</tr>
+</table>
+<table class="tab2">
+<caption>Врач</caption>
+<tr>
+<th>Фамилия</th><th>Имя</th><th>Отчество</th><th>Специализация</th>
+</tr>
+<tr>
+<td th:text="${model2.getD_surname()}">Value</td><td th:text="${model2.getD_name()}">Value</td><td th:text="${model2.getD_patronymic()}">Value</td>
+<td th:text="${model2.getD_specialization()}">Value</td>
+</tr>
+</table>
+<br>
+	<div style="background: Gainsboro; width: 500px;">
+		<p th:text="${model2.getDescription()}">Value</p>
+		<br>
+		<p th:text="'Дата:'+${model2.getDatas()}">Value</p>
+	</div>
+	<br>
+
+<a th:href="@{/datas/{id}/edit(id=${model2.getId()})}">редактировать</a> <!-- расчет id идет в конце в скобках -->
+<br>
+<hr>
+
+<form th:method="DELETE" th:action="@{/datas/{id}(id=${model2.getId()})}">
+		<button>Удалить</button>
+	</form>
+</body>
+</html>

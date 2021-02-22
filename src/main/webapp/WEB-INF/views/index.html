@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Демонстрация</title>
+</head>
+<body>
+
+	<div th:each="person : ${model1}"><!-- создаем цикл который проходится по списку -->
+	<a th:href="@{/datas/{id}(id=${person.getId()})}" th:text="${person.getId()}+'), '+${person.getName()}
+	+' '+${person.getSurname()}">user</a>
+	<!-- @ - работа с ссылками $ - работа с объектами -->
+	</div> <!-- создаем ссылку с на каждый энкземпляр в отдельности из списка -->
+	<br>
+	<hr>
+	<form>
+	<button formaction="/spring-web-crud1/datas/new">Создать</button>
+	</form>
+
+</body>
+</html>
