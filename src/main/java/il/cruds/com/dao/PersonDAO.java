@@ -1,9 +1,10 @@
 package il.cruds.com.dao;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,44 +15,66 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import il.cruds.com.personal.Personal;
 
 @Component
 public class PersonDAO {
+	private final String PATH = "G:\\eclipse-workspace\\spring-web-crud1\\src\\main\\resources\\database.properties";
+	//private final String PATH = "src/main/resources/database.properties";
 	private List<Personal> pers;
 	private static int id;
+	//@Value("${url}")
 	private String url;
+	//@Value("${login}")
 	private String login;
+	//@Value("${pass}")
 	private String pass;
 	private static Connection con;
 	
 	
 	public PersonDAO() throws SQLException, IOException, ClassNotFoundException {
-		Class.forName("org.postgresql.Driver"); //загружаем драйвер
-		PersonDAO.con = getConnection(); //создаем соединение
-		pers = new ArrayList <Personal> (); // создаем список ArrayList
+		Class.forName("org.postgresql.Driver"); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		PersonDAO.con = getConnection(); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		pers = new ArrayList <Personal> (); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ArrayList
 	}
 	
-	public static Connection getConnection() throws IOException, SQLException { // создается соединение с базой данных, пароль и логин 
-		                                                                        // берем из фаила, отдаем Connection
+	public Connection getConnection() throws IOException, SQLException { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ 
+		                                                                        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ Connection
 		Properties prop = new Properties();
 		InputStream in = null;
 		
 		try{
-			in = Files.newInputStream(Paths.get("C:\\Users\\ADM\\eclipse-workspace\\spring-web-crud1\\src\\main\\resources\\static\\database.properties"));
+			
+			Path path = Paths.get(PATH);
+			
+			System.out.println("-------1!" + path.toString() + " : "+ System.getProperty("user.dir"));
+			
+			in = Files.newInputStream(path);
 			prop.load(in);
-		}finally{in.close();}
-		
+		}finally{
+			in.close();
+			}
+			
+		//System.out.println("---->" + url + "; " + login + "; "  + pass);
+		//return DriverManager.getConnection(url, login, pass);
 		return DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("login"), prop.getProperty("pass"));
 		
+		
+	}
+	
+	public Path getPathProperties(String relativePath) {
+		Path pathU = FileSystems.getDefault().getPath("").toAbsolutePath();
+		System.out.println("-------2!" + pathU.toString());
+		return pathU;
 	}
 	
 	public List<Personal> index() throws SQLException{
 		
 		String sqlAll = "SELECT * FROM recipe";
-		PreparedStatement prepS = con.prepareStatement(sqlAll);
+		PreparedStatement prepS = con.prepareStatement(sqlAll); 
 		ResultSet result = prepS.executeQuery(); 
 		
 		while(result.next()) {
@@ -86,13 +109,13 @@ public class PersonDAO {
 
 	}
 	
-	// создаем данные в БД
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
 	public void save (Personal newPers) {
-		// создаем формуляр для запроса
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String sqlAdd = "insert into recipe (name, surname, telephone, patronymic, description, d_name, d_surname, d_patronymic, d_specialization, datas) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
-			// вставляем полученные данные в формуляр запроса
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			PreparedStatement prepS = con.prepareStatement(sqlAdd);
 			prepS.setString(1, newPers.getName());
 			prepS.setString(2, newPers.getSurname());
@@ -104,21 +127,21 @@ public class PersonDAO {
 			prepS.setString(8, newPers.getD_patronymic());
 			prepS.setString(9, newPers.getD_specialization());
 			prepS.setString(10, newPers.getDatas());
-			// отправляем запрос
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 			prepS.executeUpdate();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("Ошибка в методе save");
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ save");
 		}
 		
 	}
 	
-	// изменяем данные в БД
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
 	public void update(int id, String name, String surname, int telephone, String patronymic, String description, 
 			String d_name, String d_surname, String d_patronymic, String d_specialization, String datas) {
 		
-		// создаем формуляр для запроса
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		String sqlUpdate = "UPDATE recipe SET name = ?, surname = ?, telephone = ?, "
 				+ "patronymic = ?, description = ?, d_name = ?, d_surname = ?, d_patronymic = ?, d_specialization = ?, datas = ? WHERE id = ?;";
 		
@@ -135,16 +158,16 @@ public class PersonDAO {
 			prepS.setString(9, d_specialization);
 			prepS.setString(10, datas);
 			prepS.setInt(11, id);
-			// отправляем запрос
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 			prepS.executeUpdate();
 			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("Ошибка в методе update");
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ update");
 		}
 		
-		// вносим изменения в список который отображаем
+		// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		for(Personal p : pers) {
 			if(p.getId()==id) {
 				p.setName(name);
@@ -163,7 +186,7 @@ public class PersonDAO {
 		
 	}
 	
-	//удаление из БД 
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ 
 	public void delete(int id) {
 		
 		String sqlDelete = "DELETE FROM recipe WHERE id = ?";
@@ -175,10 +198,10 @@ public class PersonDAO {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("Ошибка в методе delete");
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ delete");
 		}
 		
-		//удаляем из списка который отоброжаем
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		Personal p = show(id);
 		pers.remove(p);
 	}	

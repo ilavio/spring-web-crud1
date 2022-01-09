@@ -1,22 +1,17 @@
 package il.cruds.com.personal;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-
 public class Personal {
 	private int id;
 	//@NotEmpty(message = "name do not must be empty")
 	//@Size(min = 2, max = 30, message = "characters must be between 2 and 30")
-	//пациент
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	private String name;
 	private String surname;
 	private int telephone;
 	private String patronymic;
 	private String description;
 	
-	//доктор
+	//пїЅпїЅпїЅпїЅпїЅпїЅ
 	private String d_name;
 	private String d_surname;
 	private String d_patronymic;

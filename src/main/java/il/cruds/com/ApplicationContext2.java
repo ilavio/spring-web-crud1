@@ -1,10 +1,12 @@
 package il.cruds.com;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -16,6 +18,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @Configuration()
 @ComponentScan("il.cruds.com")
 @EnableWebMvc()
+//@PropertySource("classpath:database.properties")
 public class ApplicationContext2 implements WebMvcConfigurer  {
 	private final ApplicationContext applicationContext;
 	
@@ -28,9 +31,9 @@ public class ApplicationContext2 implements WebMvcConfigurer  {
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views/"); // указываем где искать представления
-        templateResolver.setSuffix(".html"); // расширение представлений
-        templateResolver.setCharacterEncoding("UTF-8"); // добавляем кадировку символов
+        templateResolver.setPrefix("/WEB-INF/views/"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        templateResolver.setSuffix(".html"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        templateResolver.setCharacterEncoding("UTF-8"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         return templateResolver;
     }
 
@@ -44,16 +47,16 @@ public class ApplicationContext2 implements WebMvcConfigurer  {
     
     public void configureViewResolvers (ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setCharacterEncoding("UTF-8"); // добавляем кадировку символов
+        resolver.setCharacterEncoding("UTF-8"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
 
-    public void addResourceHandlers( ResourceHandlerRegistry registry) { // добавляем статические фаилы
+    public void addResourceHandlers( ResourceHandlerRegistry registry) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         
         registry
-                .addResourceHandler("/img/**") // также источники можно указывать через запятую
-                .addResourceLocations("classpath:/static/img/"); // также источники можно указывать через запятую
+                .addResourceHandler("/img/**") // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                .addResourceLocations("classpath:/static/img/"); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
     
     

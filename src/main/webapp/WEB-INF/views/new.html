@@ -8,40 +8,40 @@
 	<h1>Создание нового рецепта:</h1>
 	<br>
 	<form th:method="post" th:action="@{/datas}" th:object="${model3}">
-		<label for="name">Имя:</label> 
-		<input type="text" th:field="*{name}" id="name">
-		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">ERRORS</div> <!-- в случае неправильности ввода выводим ошибку -->
-		<br> 
-		<label for="surname">Фамилия:</label> 
-		<input type="text" th:field="*{surname}" id="surname"> 
-		<div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">ERRORS</div> 
-		<br> 
-		<label for="patronymic">Отчество:</label> 
-		<input type="text" th:field="*{patronymic}" id="patronymic"> 
-		<div th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">ERRORS</div> 
-		<br>
-		<label for="telephone">Телефон:</label> 
-		<input type="text" th:field="*{telephone}" id="telephone"> 
-		<div th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">ERRORS</div> 
-		<br>
-		<label for="d_name">Имя врача:</label> 
-		<input type="text" th:field="*{d_name}" id="d_name"> 
-		<div th:if="${#fields.hasErrors('d_name')}" th:errors="*{d_name}">ERRORS</div> 
-		<br>
-		<label for="d_surname">Фамилия врача:</label> 
-		<input type="text" th:field="*{d_surname}" id="d_surname"> 
-		<div th:if="${#fields.hasErrors('d_surname')}" th:errors="*{d_surname}">ERRORS</div> 
-		<br>
-		<label for="d_patronymic">Отчество врача:</label> 
-		<input type="text" th:field="*{d_patronymic}" id="d_patronymic"> 
-		<div th:if="${#fields.hasErrors('d_patronymic')}" th:errors="*{d_patronymic}">ERRORS</div> 
-		<br>
-		<label for="d_specialization">Специализация врача:</label> 
-		<input type="text" th:field="*{d_specialization}" id="d_specialization"> 
-		<div th:if="${#fields.hasErrors('d_specialization')}" th:errors="*{d_specialization}">ERRORS</div> 
+		<label for="name">Имя:</label> <input type="text" th:field="*{name}"
+			id="name">
+		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">ERRORS</div>
+		<!-- в случае неправильности ввода выводим ошибку -->
+		<br> <label for="surname">Фамилия:</label> <input type="text"
+			th:field="*{surname}" id="surname">
+		<div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">ERRORS</div>
+		<br> <label for="patronymic">Отчество:</label> <input type="text"
+			th:field="*{patronymic}" id="patronymic">
+		<div th:if="${#fields.hasErrors('patronymic')}"
+			th:errors="*{patronymic}">ERRORS</div>
+		<br> <label for="telephone">Телефон:</label> <input type="text"
+			th:field="*{telephone}" id="telephone">
+		<div th:if="${#fields.hasErrors('telephone')}"
+			th:errors="*{telephone}">ERRORS</div>
+		<br> <label for="d_name">Имя врача:</label> <input type="text"
+			th:field="*{d_name}" id="d_name">
+		<div th:if="${#fields.hasErrors('d_name')}" th:errors="*{d_name}">ERRORS</div>
+		<br> <label for="d_surname">Фамилия врача:</label> <input
+			type="text" th:field="*{d_surname}" id="d_surname">
+		<div th:if="${#fields.hasErrors('d_surname')}"
+			th:errors="*{d_surname}">ERRORS</div>
+		<br> <label for="d_patronymic">Отчество врача:</label> <input
+			type="text" th:field="*{d_patronymic}" id="d_patronymic">
+		<div th:if="${#fields.hasErrors('d_patronymic')}"
+			th:errors="*{d_patronymic}">ERRORS</div>
+		<br> <label for="d_specialization">Специализация врача:</label> <input
+			type="text" th:field="*{d_specialization}" id="d_specialization">
+		<div th:if="${#fields.hasErrors('d_specialization')}"
+			th:errors="*{d_specialization}">ERRORS</div>
 		<br>
 		<lable for="datas">Дата:</lable>
-		<select id="datas" th:field="*{datas}"><!--раскрывающийся список-->
+		<select id="datas" th:field="*{datas}">
+			<!--раскрывающийся список-->
 			<option value="01.2021">01.2021</option>
 			<option value="02.2021">02.2021</option>
 			<option value="03.2021">03.2021</option>
@@ -54,11 +54,12 @@
 			<option value="10.2021">10.2021</option>
 			<option value="11.2021">11.2021</option>
 			<option value="12.2021">12.2021</option>
-		</select>
+		</select> <br> <label for="description">Описание:</label>
+		<textarea id="description" th:field="*{description}" rows="10"
+			cols="45">Описание</textarea>
 		<br>
-		<label for="description">Описание:</label>
-		<textarea id="description" th:field="*{description}" rows = "10" cols = "45">Описание</textarea><br>  
-		<div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">ERRORS</div> 
+		<div th:if="${#fields.hasErrors('description')}"
+			th:errors="*{description}">ERRORS</div>
 		<br>
 		<button>Добавить</button>
 	</form>

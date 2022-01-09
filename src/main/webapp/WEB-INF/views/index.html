@@ -6,15 +6,18 @@
 </head>
 <body>
 
-	<div th:each="person : ${model1}"><!-- создаем цикл который проходится по списку -->
-	<a th:href="@{/datas/{id}(id=${person.getId()})}" th:text="${person.getId()}+'), '+${person.getName()}
+	<div th:each="person : ${model1}">
+		<!-- создаем цикл который проходится по списку -->
+		<a th:href="@{/datas/{id}(id=${person.getId()})}"
+			th:text="${person.getId()}+'), '+${person.getName()}
 	+' '+${person.getSurname()}">user</a>
-	<!-- @ - работа с ссылками $ - работа с объектами -->
-	</div> <!-- создаем ссылку с на каждый энкземпляр в отдельности из списка -->
+		<!-- @ - работа с ссылками $ - работа с объектами -->
+	</div>
+	<!-- создаем ссылку с на каждый энкземпляр в отдельности из списка -->
 	<br>
 	<hr>
 	<form>
-	<button formaction="/spring-web-crud1/datas/new">Создать</button>
+		<button formaction="/spring-web-crud1/datas/new">Создать</button>
 	</form>
 
 </body>
