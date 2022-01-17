@@ -35,14 +35,23 @@ public class PersonDAO {
 	private static Connection con;
 	
 	
-	public PersonDAO() throws SQLException, IOException, ClassNotFoundException {
-		Class.forName("org.postgresql.Driver"); //��������� �������
-		PersonDAO.con = getConnection(); //������� ����������
-		pers = new ArrayList <Personal> (); // ������� ������ ArrayList
+	public PersonDAO() {
+		try {
+			Class.forName("org.hsqldb.jdbc.JDBCDriver"); //Запуск драйвера hsqldb
+			PersonDAO.con = getConnection(); //Создание соединения с hsqldb
+			pers = new ArrayList <Personal> (); // Создание списка Personal
+			create();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		} 
+		
 	}
 	
-	public Connection getConnection() throws IOException, SQLException { // ��������� ���������� � ����� ������, ������ � ����� 
+	public Connection getConnection() throws SQLException  { // ��������� ���������� � ����� ������, ������ � ����� 
 		                                                                        // ����� �� �����, ������ Connection
+		/*
 		Properties prop = new Properties();
 		InputStream in = null;
 		
@@ -57,10 +66,9 @@ public class PersonDAO {
 		}finally{
 			in.close();
 			}
+			*/
 			
-		//System.out.println("---->" + url + "; " + login + "; "  + pass);
-		//return DriverManager.getConnection(url, login, pass);
-		return DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("login"), prop.getProperty("pass"));
+		return DriverManager.getConnection("jdbc:hsqldb:testdb", "SA", "");
 		
 		
 	}
@@ -204,5 +212,11 @@ public class PersonDAO {
 		//������� �� ������ ������� ����������
 		Personal p = show(id);
 		pers.remove(p);
-	}	
+	}
+	
+	private void create () throws SQLException {
+		String create = "DROP TABLE IF EXISTS recipe; create table recipe (id INT IDENTITY NOT NULL, name VARCHAR(50), surname VARCHAR(50), patronymic VARCHAR(50), telephone integer, description VARCHAR(300), d_name VARCHAR(50), d_surname VARCHAR(50), d_patronymic VARCHAR(50), d_specialization VARCHAR(50), datas VARCHAR(50), PRIMARY KEY (id));";
+		String inser = "";
+		con.createStatement().executeUpdate(create);
+	}
 }
