@@ -22,8 +22,6 @@ import il.cruds.com.personal.Personal;
 
 @Component
 public class PersonDAO {
-	private final String PATH = "G:\\eclipse-workspace\\spring-web-crud1\\src\\main\\resources\\database.properties";
-	//private final String PATH = "src/main/resources/database.properties";
 	private List<Personal> pers;
 	private static int id;
 	//@Value("${url}")
@@ -50,26 +48,8 @@ public class PersonDAO {
 	}
 	
 	public Connection getConnection() throws SQLException  { // ��������� ���������� � ����� ������, ������ � ����� 
-		                                                                        // ����� �� �����, ������ Connection
-		/*
-		Properties prop = new Properties();
-		InputStream in = null;
-		
-		try{
-			
-			Path path = Paths.get(PATH);
-			
-			System.out.println("-------1!" + path.toString() + " : "+ System.getProperty("user.dir"));
-			
-			in = Files.newInputStream(path);
-			prop.load(in);
-		}finally{
-			in.close();
-			}
-			*/
-			
+		// ����� �� �����, ������ Connection	
 		return DriverManager.getConnection("jdbc:hsqldb:testdb", "SA", "");
-		
 		
 	}
 	
@@ -216,7 +196,6 @@ public class PersonDAO {
 	
 	private void create () throws SQLException {
 		String create = "DROP TABLE IF EXISTS recipe; create table recipe (id INT IDENTITY NOT NULL, name VARCHAR(50), surname VARCHAR(50), patronymic VARCHAR(50), telephone integer, description VARCHAR(300), d_name VARCHAR(50), d_surname VARCHAR(50), d_patronymic VARCHAR(50), d_specialization VARCHAR(50), datas VARCHAR(50), PRIMARY KEY (id));";
-		String inser = "";
 		con.createStatement().executeUpdate(create);
 	}
 }
